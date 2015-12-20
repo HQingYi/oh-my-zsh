@@ -9,7 +9,12 @@
 export MARKPATH=$HOME/.marks
 
 jump() {
-	cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
+  local target=$1 && shift
+  cd -P "$MARKPATH/$target" 2>/dev/null || echo "No such mark: $1"
+  if [ $# -gt 0 ]; then
+    echo "with action: $@"
+    $@
+  fi
 }
 
 mark() {
